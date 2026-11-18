@@ -1,0 +1,212 @@
+{
+  "owner_qq": {
+    "description": "主人 QQ 号（必填）",
+    "type": "string",
+    "default": "",
+    "hint": "填你自己的 QQ 号；只有这个号能使用 /日报 /周报 等命令，日报/周报也私聊推送给它。留空则所有命令和推送都不会生效。"
+  },
+  "target_umos": {
+    "description": "推送目标会话（unified_msg_origin）",
+    "type": "list",
+    "default": [],
+    "hint": "留空自动使用 aiocqhttp:FriendMessage:<主人QQ>，失败会自动换 default:FriendMessage:<主人QQ>；命令里收到主人私聊后也会自动记住真实会话。"
+  },
+  "enable_daily": {
+    "description": "启用每日新闻简报",
+    "type": "bool",
+    "default": true
+  },
+  "daily_time": {
+    "description": "每日推送时间（HH:MM）",
+    "type": "string",
+    "default": "23:00",
+    "hint": "每天到这个时间之后，若今天还没推送就生成并私聊推送。"
+  },
+  "daily_items": {
+    "description": "每日要闻条数",
+    "type": "int",
+    "default": 5,
+    "hint": "每天只保留最重要的几条要闻，3-6；越少越简洁。"
+  },
+  "split_items": {
+    "description": "每条要闻单独发一条消息",
+    "type": "bool",
+    "default": true,
+    "hint": "开：标题、每条要闻、最后总结各发一条，读起来不累；关：合并成一条长消息按字数分段。"
+  },
+  "recent_days": {
+    "description": "跨天去重窗口（天）",
+    "type": "int",
+    "default": 5,
+    "hint": "最近这几天推送过的新闻，再次出现时自动跳过；2-14。"
+  },
+  "enable_watch": {
+    "description": "启用自定义关注主题",
+    "type": "bool",
+    "default": true,
+    "hint": "开：日报里会多出你关注的主题段落；关：只保留常规要闻。"
+  },
+  "watch_items": {
+    "description": "每个关注主题最多几条",
+    "type": "int",
+    "default": 3,
+    "hint": "1-5，默认 3；越少越简洁。"
+  },
+  "watch_candidates": {
+    "description": "每个关注主题最多给模型几条候选",
+    "type": "int",
+    "default": 8,
+    "hint": "3-20，太多会引入噪声和费 token。"
+  },
+  "watch_llm_timeout": {
+    "description": "关注主题模型调用超时（秒）",
+    "type": "int",
+    "default": 90
+  },
+  "enable_term_explain": {
+    "description": "启用聊天里的生僻词解释",
+    "type": "bool",
+    "default": true,
+    "hint": "开：主人问“XX 是什么意思”时，结合最近新闻解释词义与语境。"
+  },
+  "term_timeout": {
+    "description": "生僻词解释模型超时（秒）",
+    "type": "int",
+    "default": 60
+  },
+  "enable_weather": {
+    "description": "启用日报开头的明天天气提示",
+    "type": "bool",
+    "default": true,
+    "hint": "开：日报第一条带城市、温度、降雨和穿衣建议；关：不请求天气接口。"
+  },
+  "weather_city": {
+    "description": "天气城市（留空自动定位）",
+    "type": "string",
+    "default": "",
+    "hint": "留空时按本机公网 IP 猜城市；也可以填“广州”“桂林”这样的中文城市名。"
+  },
+  "weather_timeout": {
+    "description": "天气接口超时（秒）",
+    "type": "int",
+    "default": 12,
+    "hint": "3-30；天气失败不会影响日报推送。"
+  },
+  "enable_weekly": {
+    "description": "启用每周新闻周报",
+    "type": "bool",
+    "default": true
+  },
+  "weekly_day": {
+    "description": "周报推送星期几",
+    "type": "string",
+    "default": "sun",
+    "hint": "可选 mon/tue/wed/thu/fri/sat/sun，也支持 周一…周日。默认周日。"
+  },
+  "weekly_time": {
+    "description": "周报推送时间（HH:MM）",
+    "type": "string",
+    "default": "23:10",
+    "hint": "默认周日晚 23:10，读完最近 7 天日报后生成。"
+  },
+  "tick_seconds": {
+    "description": "定时检查间隔（秒）",
+    "type": "int",
+    "default": 30,
+    "hint": "每隔多少秒检查一次是否到点；10-600。"
+  },
+  "enable_chinanews": {
+    "description": "启用中新网即时新闻源",
+    "type": "bool",
+    "default": true
+  },
+  "chinanews_max": {
+    "description": "中新网最多取几条",
+    "type": "int",
+    "default": 20
+  },
+  "enable_sina": {
+    "description": "启用新浪全站日热榜",
+    "type": "bool",
+    "default": true
+  },
+  "sina_max": {
+    "description": "新浪热榜最多取几条",
+    "type": "int",
+    "default": 20
+  },
+  "enable_qqhot": {
+    "description": "启用腾讯新闻热榜",
+    "type": "bool",
+    "default": true
+  },
+  "qqhot_max": {
+    "description": "腾讯热榜最多取几条",
+    "type": "int",
+    "default": 15
+  },
+  "enable_wscn": {
+    "description": "启用华尔街见闻快讯（财经/资金）",
+    "type": "bool",
+    "default": true
+  },
+  "wscn_max": {
+    "description": "华尔街见闻最多取几条",
+    "type": "int",
+    "default": 12
+  },
+  "enable_baidu": {
+    "description": "启用百度实时热搜（看普通人在关注什么）",
+    "type": "bool",
+    "default": true
+  },
+  "baidu_max": {
+    "description": "百度热搜最多取几条",
+    "type": "int",
+    "default": 8
+  },
+  "max_total_items": {
+    "description": "交给模型的最多候选条数",
+    "type": "int",
+    "default": 70,
+    "hint": "去重后最多取这么多条，10-200。"
+  },
+  "max_materials_chars": {
+    "description": "材料文本最大字数",
+    "type": "int",
+    "default": 7000,
+    "hint": "2000-20000，越大越完整但越费 token。"
+  },
+  "llm_timeout": {
+    "description": "日报模型调用超时（秒）",
+    "type": "int",
+    "default": 180
+  },
+  "weekly_llm_timeout": {
+    "description": "周报模型调用超时（秒）",
+    "type": "int",
+    "default": 240
+  },
+  "push_chunk_chars": {
+    "description": "QQ 单条消息最大字数",
+    "type": "int",
+    "default": 1200,
+    "hint": "超长会拆成多条发送；400-4000。"
+  },
+  "keep_daily_days": {
+    "description": "日报文件保留天数",
+    "type": "int",
+    "default": 45
+  },
+  "source_timeout": {
+    "description": "单个新闻源抓取超时（秒）",
+    "type": "int",
+    "default": 18
+  },
+  "provider_id": {
+    "description": "指定模型提供商 ID（可选）",
+    "type": "string",
+    "default": "",
+    "hint": "留空使用 AstrBot 当前默认对话模型；填了就用这个提供商。"
+  }
+}
